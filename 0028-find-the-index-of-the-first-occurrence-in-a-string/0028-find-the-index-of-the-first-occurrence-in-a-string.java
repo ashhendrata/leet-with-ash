@@ -1,14 +1,15 @@
 class Solution {
     public int strStr(String haystack, String needle) {
-        //let's try a Sliding Window technique
-        for (int window = 0; window <= haystack.length() - needle.length(); window++){
-            for (int needlepoint = 0; needlepoint < needle.length(); needlepoint++){
-                if (haystack.charAt(window+needlepoint) != needle.charAt(needlepoint)){
-                    break;
-                }
-                if (needlepoint == needle.length() -1){
-                    return window;
-                }
+        int needleindex = 0;
+        for (int window = 0; window < haystack.length(); window++){
+            if (haystack.charAt(window)==needle.charAt(needleindex)){
+                needleindex++;
+            } else {
+                window = window - needleindex;
+                needleindex = 0;
+            }
+            if (needleindex == needle.length()){
+                return window-needle.length() +1;
             }
         }
         return -1;
